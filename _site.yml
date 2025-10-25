@@ -1,0 +1,14 @@
+name: "Nicolette's Website"
+output_dir: "."
+navbar:
+  title: "Home"
+  right:
+    - text: "Experience"
+      href: experience.html
+    - icon: fa-envelope fa-lg
+      href: mailto:<nrl2142@cumc.columbia.edu>
+    - icon: fa-github fa-lg
+      href: http://github.com/<p8105-nrl2142>/
+output:
+  html_document:
+    theme: cerulean

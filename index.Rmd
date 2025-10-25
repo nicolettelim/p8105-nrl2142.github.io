@@ -1,0 +1,11 @@
+---
+title: "Nicolette's Website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# Introductory Page
+
+
