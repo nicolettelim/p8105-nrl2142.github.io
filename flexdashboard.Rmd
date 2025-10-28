@@ -70,8 +70,8 @@ scatterplot_df =
              "Type:", product_name, "<br>"),
              hoverinfo = "text") |>
              layout(title = "Frozen Pizza Order by Time and Day",
-                    xaxis = list(title="Hour of Day"),
-                    yaxis = list(title ="Day of Week"))
+                    xaxis = list(title="Day of Week"),
+                    yaxis = list(title ="Hour of Day"))
 ```
 
 
