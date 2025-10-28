@@ -33,7 +33,9 @@ Column {data-width = 650}
 ### Plotly Boxplot 
 ```{r}
 instacart_df |>
-  plot_ly (x = ~product_name, y = ~order_hour_of_day, color = ~product_name, type = "box", colors = "viridis") |>
+  plot_ly (x = ~product_name, y = ~order_hour_of_day, color = ~product_name, type = "box", colors = "viridis", text = ~paste("Product:", product_name,"Hour:", sprintf("%02d:00", order_hour_of_day), "<br>"),
+           hoverinfo = "text",
+           showlegend = FALSE) |>
   layout (title = "Distribution of Order Times by Frozen Cheese Pizza Type",
           xaxis = list(title = "Product Name"), yaxis = list(title = "Hour of Day"))
 ```
@@ -46,32 +48,36 @@ Column {data-width = 350}
 instacart_df |>
   group_by (product_name) |>
   summarise (count = n(), .groups = "drop") |> 
-  plot_ly( x = ~product_name, y = ~count, type ="bar", color = ~product_name, colors = "viridis") |>
+  plot_ly( x = ~product_name, y = ~count, type ="bar", color = ~product_name, colors = "viridis", 
+           text = ~paste("Product:", product_name, "<br>Count:", count),
+           hoverinfo = "text",
+           showlegend = FALSE) |>
   layout (title = "Count of Frozen Cheese Pizzas Ordered", 
           xaxis = list(title = "Product Name"), yaxis = list(title = "Count"))
 ```
 
-### Plotly Scatterplot
+### Plotly Heatmap
 
 ```{r}
-scatterplot_df =
+heatmap_df =
   instacart |>
   janitor::clean_names() |>
   filter(str_detect(product_name, regex("frozen pizza", ignore_case = TRUE))) |>
-  group_by(order_dow, order_hour_of_day, product_name) |>
   mutate(order_dow = factor(order_dow, 
                             levels = 0:6, 
-                            labels =c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))) 
+                            labels =c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))) |>
+  group_by (order_dow, order_hour_of_day) |>
+  summarise(count = n(), .groups = "drop")
   
-
-           plot_ly(data=scatterplot_df, x= ~order_dow, y =~order_hour_of_day, color=~product_name, type ="scatter", mode ="markers", text = ~paste (
-             "Time:", order_hour_of_day, ":00<br>",
-             "Day:", order_dow, "<br>",
-             "Type:", product_name, "<br>"),
-             hoverinfo = "text") |>
-             layout(title = "Frozen Pizza Order by Time and Day",
-                    xaxis = list(title="Day of Week"),
-                    yaxis = list(title ="Hour of Day"))
+plot_ly(data=heatmap_df, x= ~order_dow, y =~order_hour_of_day, z = ~count, type ="heatmap", colorscale = "viridis", hoverinfo = "text",
+        text = ~paste(
+          "Day:", order_dow, "<br>",
+          "Hour:", sprintf("%02d:00", order_hour_of_day), "<br>",
+          "Count:", count),
+        hovertemplate = "%{text}<extra></extra>") |>
+  layout(title = "Frozen Pizza Order Frequency by Day and Hour",
+         xaxis = list(title = "Day of Week"),
+         yaxis = list(title = "Hour of Day"))
 ```
 
 
