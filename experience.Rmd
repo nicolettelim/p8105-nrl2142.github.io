@@ -4,9 +4,21 @@ output:
   html_document:
     toc: true
     toc_float: true
-    theme: cerulean
 ---
 
-# Academic Experience 
+# Education 
+- Columbia University Mailman School of Public Health, New York, NY (Expected May 2026)
+ - Master of Public Health, Population and Family Health; Applied Biostatistics Certificate 
+
+- Nanyang Technological University, Singapore (May 2024)
+ -Bachelor of Social Sciences, Public Policy and Global Affairs (First Class Honors)
 
 # Professional Experience 
+I am currently a global regulatory policy graduate intern at Amgen, where I focus on evaluating FDA performance during the PDUFA VII cycle in preparation for the upcoming reauthorization. Prior to this, I gained experience in the Japan-Asia-Pacific (JAPAC) region working in government affairs, giving me exposure to both the pre-approval and post-approval stages of the drug development process. Working in industry has provided me with valuable insights into the healthcare system from a private sector perspective. I am passionate about continuing to work in this field to help improve patient access to innovative medicines.
+
+# Languages
+I am fluent in three languages - English, Mandarin Chinese and Korean and possess proficient reading and writing skills in each of them. 
+
+
+
+

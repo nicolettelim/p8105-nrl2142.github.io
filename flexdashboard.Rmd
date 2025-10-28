@@ -1,0 +1,78 @@
+---
+title: "Flexdashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include = FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+data(instacart)
+
+instacart_df =
+  instacart |>
+  janitor::clean_names() |>
+  select (product_name, order_hour_of_day, order_dow) |>
+  filter (str_detect(product_name, regex("frozen pizza", ignore_case = TRUE))) |>
+  distinct()|>
+  filter (str_detect(product_name, regex("cheese",ignore_case=TRUE ))) |>
+  group_by (product_name, order_dow) |>
+  mutate(order_dow = factor(order_dow,
+                            levels =c(0:6),
+                                      labels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday")))
+
+  instacart_df
+```
+
+Column {data-width = 650}
+-----------------------------------------------------------------------
+### Plotly Boxplot 
+```{r}
+instacart_df |>
+  plot_ly (x = ~product_name, y = ~order_hour_of_day, color = ~product_name, type = "box", colors = "viridis") |>
+  layout (title = "Distribution of Order Times by Frozen Cheese Pizza Type",
+          xaxis = list(title = "Product Name"), yaxis = list(title = "Hour of Day"))
+```
+
+Column {data-width = 350}
+-----------------------------------------------------------------------
+
+### Plotly Bar Plot
+```{r}
+instacart_df |>
+  group_by (product_name) |>
+  summarise (count = n(), .groups = "drop") |> 
+  plot_ly( x = ~product_name, y = ~count, type ="bar", color = ~product_name, colors = "viridis") |>
+  layout (title = "Count of Frozen Cheese Pizzas Ordered", 
+          xaxis = list(title = "Product Name"), yaxis = list(title = "Count"))
+```
+
+### Plotly Scatterplot
+
+```{r}
+scatterplot_df =
+  instacart |>
+  janitor::clean_names() |>
+  filter(str_detect(product_name, regex("frozen pizza", ignore_case = TRUE))) |>
+  group_by(order_dow, order_hour_of_day, product_name) |>
+  mutate(order_dow = factor(order_dow, 
+                            levels = 0:6, 
+                            labels =c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))) 
+  
+
+           plot_ly(data=scatterplot_df, x= ~order_dow, y =~order_hour_of_day, color=~product_name, type ="scatter", mode ="markers", text = ~paste (
+             "Time:", order_hour_of_day, ":00<br>",
+             "Day:", order_dow, "<br>",
+             "Type:", product_name, "<br>"),
+             hoverinfo = "text") |>
+             layout(title = "Frozen Pizza Order by Time and Day",
+                    xaxis = list(title="Hour of Day"),
+                    yaxis = list(title ="Day of Week"))
+```
+
+
+

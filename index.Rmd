@@ -6,6 +6,12 @@ output:
     toc_float: true
 ---
 
-# Introductory Page
+# About Me
+Hello! My name is Nicolette and I am a 2nd year Master of Public Health candidate at Columbia University. This website was created as part of an assignment for a Data Science class I am taking but who knows? I might continue to update it as I continue on this uphill journey of learning R. As it was once said, "One must imagine Sisyphys happy" ~
+
+
+
+![](https://drmowinckels.io/blog/2019/why-rstudio-conf-is-the-best-conference-experience-i-have-had/index_files/figure-html/unnamed-chunk-1-1.png)
+
 
 
