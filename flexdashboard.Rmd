@@ -51,6 +51,7 @@ instacart_df |>
   plot_ly( x = ~product_name, y = ~count, type ="bar", color = ~product_name, colors = "viridis", 
            text = ~paste("Product:", product_name, "<br>Count:", count),
            hoverinfo = "text",
+           textposition = "none",
            showlegend = FALSE) |>
   layout (title = "Count of Frozen Cheese Pizzas Ordered", 
           xaxis = list(title = "Product Name"), yaxis = list(title = "Count"))
